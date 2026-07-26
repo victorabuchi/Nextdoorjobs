@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your listing is live — HireKeeper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="logo"><span class="dot"></span>HireKeeper</a>
+    <nav class="header-nav">
+      <a href="work.html">Find work</a>
+      <a href="hire.html">Hire someone</a>
+    </nav>
+  </div>
+</header>
+
+<section id="listing-created" class="thanks for-hire">
+  <div class="wrap">
+    <div class="glow"></div>
+    <h1>Your listing is live.</h1>
+    <p id="listing-summary" style="font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.03em; color: var(--text-faint); margin-bottom: 8px;"></p>
+    <p>Share this link anywhere — anyone who opens it can view the listing and apply. Applications come to us first, so we'll reach out to you with matches.</p>
+
+    <div class="link-box">
+      <input id="share-link-input" type="text" readonly>
+      <button id="copy-link-btn" class="btn btn-sage">Copy link</button>
+    </div>
+
+    <div class="thanks-actions">
+      <a href="hire.html" class="btn btn-ghost">Create another listing</a>
+      <a href="index.html" class="btn btn-ghost">Back to home</a>
+    </div>
+  </div>
+</section>
+
+<script src="js/main.js"></script>
+</body>
+</html>
