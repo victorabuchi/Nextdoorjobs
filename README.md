@@ -1,5 +1,7 @@
 # HireKeeper — Phase 1 (static MVP)
 
+**Live:** [hirekeeper.onrender.com](https://hirekeeper.onrender.com) — deployed on Render, both Google Forms wired up and working.
+
 Two-sided site: homeowners create a job listing on `hire.html` and get a
 shareable link; anyone who opens that link (`job.html`) can view the job and
 apply on `work.html`. Every form submits straight to a Google Form, so
@@ -13,11 +15,15 @@ There's no database. When a listing is created, its details (service type,
 location, notes — **not** the client's name/email/phone) are encoded directly
 into the URL. `job.html` just reads whatever's in the link and displays it.
 That means the link *is* the listing — share it anywhere, and anyone who
-opens it sees the job, with zero server involved. The applicant's own
-submission (and a reference back to which listing they applied to) goes to
-your Job Seekers Google Form as usual.
+opens it sees the job, with zero server involved. When someone arrives via a
+shared listing, `work.html` shows a banner naming the job they're applying
+for — but that's display-only; their submission still goes to the Job
+Seekers Google Form as a normal application, with nothing about the source
+link sent along.
 
-## 1. Create the two Google Forms
+## Setup (already done — kept here for reference / redeploying elsewhere)
+
+### 1. Create the two Google Forms
 
 Two separate forms, one per side. Go to forms.google.com → Blank form.
 
@@ -29,7 +35,6 @@ Two separate forms, one per side. Go to forms.google.com → Blank form.
 5. Short answer — Full name
 6. Short answer — Email
 7. Short answer — Phone / WhatsApp
-8. **Paragraph** — Job reference *(leave this blank when someone applies without a link — it only fills in when they arrive via a shared job listing)*
 
 ### Form B — "HireKeeper: Clients" (feeds `hire.html`)
 1. Short answer — Service type
@@ -44,7 +49,7 @@ Two separate forms, one per side. Go to forms.google.com → Blank form.
 On each form: **Responses** tab → green Sheets icon → **Create spreadsheet**.
 Then kebab menu (⋮) → **Get email notifications for new responses**.
 
-## 2. Find your entry IDs
+### 2. Find your entry IDs
 
 For each form:
 1. **Send** → link icon → copy the link (opens the live form at a URL like
@@ -55,13 +60,12 @@ For each form:
 4. Your submit URL = the viewform URL with `viewform` swapped for
    `formResponse`.
 
-## 3. Wire it up
+### 3. Wire it up
 
 Open `js/main.js`, replace the placeholders in `CONFIG.work` and
-`CONFIG.hire` with your real `actionUrl` and `entry.xxxx` IDs — including
-`jobRef` for the work form (field 8 above).
+`CONFIG.hire` with your real `actionUrl` and `entry.xxxx` IDs.
 
-## 4. Run it locally
+### 4. Run it locally
 
 ```bash
 python3 -m http.server 8000
@@ -70,9 +74,9 @@ python3 -m http.server 8000
 Open `http://localhost:8000`. Test the full loop: create a listing on
 `hire.html` → confirm the row lands in the Clients sheet → copy the share
 link → open it in a new tab → apply on `work.html` → confirm that row lands
-in the Job Seekers sheet with the Job reference field filled in.
+in the Job Seekers sheet.
 
-## 5. Push to GitHub
+### 5. Push to GitHub
 
 ```bash
 cd hirekeeper
@@ -86,11 +90,12 @@ git push -u origin main
 
 (Create the empty `hirekeeper` repo under your GitHub account first.)
 
-## 6. Deploy
+### 6. Deploy
 
 Same path as Frozenholm and Rannikon Puutarha: Render → New → Static Site →
 connect the `hirekeeper` repo → build command empty, publish directory `.` →
-deploy. Point your domain at it once picked and connected in Render.
+deploy. **Done** — live at [hirekeeper.onrender.com](https://hirekeeper.onrender.com).
+Point a custom domain at it once picked and connected in Render.
 
 ## A note on the shared link
 
