@@ -12,6 +12,15 @@ function requireAdmin(request, reply, done) {
 
 module.exports = async function adminRoutes(fastify) {
 
+  fastify.get('/api/admin/users', {
+    onRequest: [fastify.authenticate, requireAdmin]
+  }, async (request, reply) => {
+    const result = await db.query(
+      'SELECT id, full_name, email, role, city, region, country, created_at FROM users ORDER BY created_at DESC'
+    )
+    return reply.send({ users: result.rows })
+  })
+
   fastify.get('/api/admin/listings', {
     onRequest: [fastify.authenticate, requireAdmin]
   }, async (request, reply) => {
@@ -51,14 +60,36 @@ module.exports = async function adminRoutes(fastify) {
     }
 
     const result = await db.query(
-      'UPDATE applications SET status = $1 WHERE id = $2 RETURNING *',
+      `UPDATE applications SET status = $1 WHERE id = $2
+       RETURNING *, (SELECT worker_id FROM applications WHERE id = $2)`,
       [status, request.params.id]
     )
     if (!result.rows[0]) {
       return reply.status(404).send({ error: 'Application not found' })
     }
 
-    return reply.send({ application: result.rows[0] })
+    const application = result.rows[0]
+
+    const listing = await db.query(
+      'SELECT service_type, city, region FROM listings WHERE id = $1',
+      [application.listing_id]
+    )
+    if (listing.rows[0]) {
+      const l = listing.rows[0]
+      const messages = {
+        reviewing: `Your application for ${l.service_type} in ${l.city}, ${l.region} is being reviewed.`,
+        matched: `You've been matched for ${l.service_type} in ${l.city}, ${l.region}. We'll be in touch with next steps.`,
+        rejected: `Your application for ${l.service_type} in ${l.city}, ${l.region} was not selected this time.`
+      }
+      if (messages[status]) {
+        await db.query(
+          'INSERT INTO notifications (user_id, message) VALUES ($1, $2)',
+          [application.worker_id, messages[status]]
+        )
+      }
+    }
+
+    return reply.send({ application })
   })
 
 }

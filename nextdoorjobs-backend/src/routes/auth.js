@@ -93,4 +93,48 @@ module.exports = async function authRoutes(fastify) {
     return reply.send({ user: result.rows[0] })
   })
 
+  fastify.patch('/api/auth/me', {
+    onRequest: [fastify.authenticate]
+  }, async (request, reply) => {
+    const { full_name, phone, city, region, country, work_type } = request.body
+
+    const result = await db.query(
+      `UPDATE users SET
+         full_name = COALESCE($1, full_name),
+         phone = COALESCE($2, phone),
+         city = COALESCE($3, city),
+         region = COALESCE($4, region),
+         country = COALESCE($5, country),
+         work_type = COALESCE($6, work_type)
+       WHERE id = $7
+       RETURNING id, full_name, email, role, phone, city, region, country, work_type, created_at`,
+      [full_name || null, phone || null, city || null, region || null, country || null, work_type || null, request.user.id]
+    )
+
+    return reply.send({ user: result.rows[0] })
+  })
+
+  fastify.post('/api/auth/change-password', {
+    onRequest: [fastify.authenticate]
+  }, async (request, reply) => {
+    const { current_password, new_password } = request.body
+    if (!current_password || !new_password) {
+      return reply.status(400).send({ error: 'Current and new password are required' })
+    }
+    if (new_password.length < 8) {
+      return reply.status(400).send({ error: 'New password must be at least 8 characters' })
+    }
+
+    const result = await db.query('SELECT password_hash FROM users WHERE id = $1', [request.user.id])
+    const valid = await bcrypt.compare(current_password, result.rows[0].password_hash)
+    if (!valid) {
+      return reply.status(401).send({ error: 'Current password is incorrect' })
+    }
+
+    const password_hash = await bcrypt.hash(new_password, 12)
+    await db.query('UPDATE users SET password_hash = $1 WHERE id = $2', [password_hash, request.user.id])
+
+    return reply.send({ message: 'Password updated' })
+  })
+
 }

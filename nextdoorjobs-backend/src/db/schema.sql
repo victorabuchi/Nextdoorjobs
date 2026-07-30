@@ -34,3 +34,11 @@ CREATE TABLE IF NOT EXISTS applications (
   created_at TIMESTAMPTZ DEFAULT now(),
   UNIQUE(listing_id, worker_id)
 );
+
+CREATE TABLE IF NOT EXISTS notifications (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  message TEXT NOT NULL,
+  read BOOLEAN NOT NULL DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT now()
+);

@@ -38,6 +38,7 @@ fastify.register(require('./routes/auth'))
 fastify.register(require('./routes/listings'))
 fastify.register(require('./routes/applications'))
 fastify.register(require('./routes/admin'))
+fastify.register(require('./routes/notifications'))
 
 fastify.get('/health', async (request, reply) => {
   return {
