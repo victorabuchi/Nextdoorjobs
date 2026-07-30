@@ -1,26 +1,26 @@
 /* ==========================================================================
-   HireKeeper — design tokens
-   Theme: co-branded with Nextdoor — light, friendly, neighbourhood green
-   and marketplace blue, rounded and approachable.
+   NextdoorJobs — design tokens
+   Theme: full Nextdoor brand takeover, per partner brand guidelines —
+   signature green, off-black text, off-white surfaces, soft shadow
+   cards (no hard strokes), rounded friendly type.
    ========================================================================== */
 
 :root {
-  --bg: #F6F7F4;
+  --bg: #F7F9F7;
   --bg-panel: #FFFFFF;
-  --bg-panel-raised: #EFF2EC;
-  --border: rgba(15, 23, 15, 0.08);
-  --border-strong: rgba(15, 23, 15, 0.16);
+  --bg-panel-raised: #EFF4EF;
+  --border: rgba(26, 26, 26, 0.07);
+  --border-strong: rgba(26, 26, 26, 0.16);
+  --shadow: 0 1px 2px rgba(26, 26, 26, 0.04), 0 2px 8px rgba(26, 26, 26, 0.06);
+  --shadow-raised: 0 2px 4px rgba(26, 26, 26, 0.05), 0 6px 16px rgba(26, 26, 26, 0.08);
 
-  --text: #1B1F1C;
-  --text-muted: #5B655D;
-  --text-faint: #8A948C;
+  --text: #1A1A1A;
+  --text-muted: #565F5A;
+  --text-faint: #838C87;
 
-  --green: #00A651;
-  --green-dark: #00863F;
-  --green-soft: rgba(0, 166, 81, 0.12);
-  --blue: #2F80ED;
-  --blue-dark: #1D66C9;
-  --blue-soft: rgba(47, 128, 237, 0.12);
+  --green: #00B55B;
+  --green-dark: #028C46;
+  --green-soft: rgba(0, 181, 91, 0.12);
 
   --font-display: "Nunito", "Segoe UI", sans-serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -67,8 +67,11 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+  background: var(--bg-panel);
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 10;
 }
 
 .site-header .wrap {
@@ -78,43 +81,29 @@ a { color: inherit; }
   width: 100%;
 }
 
-.logo-group {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
+/* Logo lockup — house mark + wordmark.
+   Clear space: the gap beside the icon is kept at roughly half the
+   icon's rendered width, per brand guidelines. */
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-display);
-  font-size: 21px;
-  font-weight: 800;
+  gap: 17px;
   text-decoration: none;
   color: var(--text);
 }
 
-.logo .dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 0 4px var(--green-soft);
+.logo .mark {
+  width: 34px;
+  height: 34px;
+  display: block;
 }
 
-.sponsor-badge {
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--green-dark);
-  background: var(--green-soft);
-  padding: 5px 12px;
-  border-radius: var(--radius-pill);
-  white-space: nowrap;
+.logo .wordmark {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1;
 }
-
-.sponsor-badge strong { font-weight: 800; }
 
 .header-nav {
   display: flex;
@@ -153,9 +142,6 @@ a { color: inherit; }
 
 .btn-green { background: var(--green); color: #FFFFFF; }
 .btn-green:hover { background: var(--green-dark); }
-
-.btn-blue { background: var(--blue); color: #FFFFFF; }
-.btn-blue:hover { background: var(--blue-dark); }
 
 .btn-ghost {
   background: transparent;
@@ -197,19 +183,13 @@ textarea:focus-visible {
 .split {
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
-  border: 1px solid var(--border);
   border-radius: 20px;
   overflow: hidden;
   margin-top: 8px;
+  box-shadow: var(--shadow-raised);
 }
 
-.split-fence {
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--border-strong) 0, var(--border-strong) 6px,
-    transparent 6px, transparent 14px
-  );
-}
+.split-fence { background: var(--border); }
 
 .split-panel {
   padding: 44px 36px;
@@ -227,10 +207,9 @@ textarea:focus-visible {
   height: 34px;
   border-radius: 50%;
   margin-bottom: 20px;
+  background: var(--green);
+  box-shadow: 0 0 0 8px var(--green-soft);
 }
-
-.split-panel.for-work .glow { background: var(--green); box-shadow: 0 0 0 8px var(--green-soft); }
-.split-panel.for-hire .glow { background: var(--blue); box-shadow: 0 0 0 8px var(--blue-soft); }
 
 .split-panel h2 {
   font-family: var(--font-display);
@@ -241,9 +220,13 @@ textarea:focus-visible {
 
 .split-panel p { color: var(--text-muted); margin: 0 0 20px; font-size: 15px; }
 
-.split-panel .go { font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: 0.03em; }
-.split-panel.for-work .go { color: var(--green-dark); }
-.split-panel.for-hire .go { color: var(--blue-dark); }
+.split-panel .go {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--green-dark);
+}
 
 /* -------------------- streetline divider -------------------- */
 .streetline {
@@ -265,8 +248,8 @@ textarea:focus-visible {
 .step {
   padding: 28px;
   background: var(--bg-panel);
-  border: 1px solid var(--border);
   border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .step .num { font-family: var(--font-display); font-weight: 800; font-size: 15px; color: var(--green-dark); margin-bottom: 14px; }
@@ -274,7 +257,7 @@ textarea:focus-visible {
 .step p { color: var(--text-muted); font-size: 14.5px; margin: 0; }
 
 /* -------------------- footer -------------------- */
-.site-footer { border-top: 1px solid var(--border); padding: 32px 0 48px; }
+.site-footer { padding: 32px 0 48px; }
 .site-footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
 .site-footer p { color: var(--text-faint); font-size: 13px; margin: 0; }
 
@@ -288,9 +271,9 @@ form.card {
   max-width: 560px;
   margin: 0 auto;
   background: var(--bg-panel);
-  border: 1px solid var(--border);
   border-radius: 20px;
   padding: 40px;
+  box-shadow: var(--shadow-raised);
 }
 
 .field { margin-bottom: 22px; }
@@ -333,7 +316,6 @@ input::placeholder, textarea::placeholder { color: var(--text-faint); }
   margin: 0 auto 28px;
   padding: 14px 18px;
   background: var(--green-soft);
-  border: 1px solid rgba(0, 166, 81, 0.3);
   border-radius: var(--radius);
   font-size: 14px;
 }
@@ -352,7 +334,6 @@ input::placeholder, textarea::placeholder { color: var(--text-faint); }
   box-shadow: 0 0 0 10px var(--green-soft);
   margin: 0 auto 28px;
 }
-.thanks.for-hire .glow { background: var(--blue); box-shadow: 0 0 0 10px var(--blue-soft); }
 
 .thanks h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 5vw, 42px); margin: 0 0 14px; }
 .thanks p { color: var(--text-muted); max-width: 480px; margin: 0 auto 32px; }
@@ -365,8 +346,8 @@ input::placeholder, textarea::placeholder { color: var(--text-faint); }
   margin: 0 auto 32px;
   padding: 14px 16px;
   background: var(--bg-panel);
-  border: 1px solid var(--border-strong);
   border-radius: var(--radius);
+  box-shadow: var(--shadow);
   text-align: left;
 }
 
@@ -393,18 +374,18 @@ input::placeholder, textarea::placeholder { color: var(--text-faint); }
   max-width: 600px;
   margin: 0 auto;
   background: var(--bg-panel);
-  border: 1px solid var(--border);
   border-radius: 20px;
   padding: 44px;
   text-align: center;
+  box-shadow: var(--shadow-raised);
 }
 
 .listing-card .glow {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: var(--blue);
-  box-shadow: 0 0 0 8px var(--blue-soft);
+  background: var(--green);
+  box-shadow: 0 0 0 8px var(--green-soft);
   margin: 0 auto 22px;
 }
 
@@ -441,7 +422,6 @@ input::placeholder, textarea::placeholder { color: var(--text-faint); }
 /* -------------------- responsive -------------------- */
 @media (max-width: 760px) {
   .header-nav { display: none; }
-  .sponsor-badge { display: none; }
   .split { grid-template-columns: 1fr; }
   .split-fence { display: none; }
   .steps-grid { grid-template-columns: 1fr; }

@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create a job listing — HireKeeper</title>
+<title>Create a job listing | NextdoorJobs</title>
 <meta name="description" content="Post what you need done and where. Get a shareable link people nearby can view and apply to.">
+<link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,10 +15,10 @@
 
 <header class="site-header">
   <div class="wrap">
-    <div class="logo-group">
-      <a href="index.html" class="logo"><span class="dot"></span>HireKeeper</a>
-      <span class="sponsor-badge">Sponsored by <strong>Nextdoor</strong></span>
-    </div>
+    <a href="index.html" class="logo">
+      <img src="img/logo.png" alt="NextdoorJobs" class="mark">
+      <span class="wordmark">NextdoorJobs</span>
+    </a>
     <nav class="header-nav">
       <a href="work.html">Find work</a>
       <a href="hire.html">Hire someone</a>
@@ -30,7 +31,7 @@
     <div class="form-head">
       <p class="eyebrow">For homeowners</p>
       <h1>Create a job listing</h1>
-      <p>Tell us what you need and where. You'll get a link to share — anyone who opens it can view the listing and apply.</p>
+      <p>Tell us what you need and where. You'll get a link to share, and anyone who opens it can view the listing and apply.</p>
     </div>
 
     <form id="hire-form" class="card" data-submit-label="Create listing">
@@ -54,7 +55,7 @@
           <input type="text" name="city" placeholder="City" required>
           <input type="text" name="region" placeholder="State / Province" required>
         </div>
-        <span class="hint">Shown on the public listing — this is what applicants see.</span>
+        <span class="hint">Shown on the public listing. This is what applicants see.</span>
       </div>
 
       <div class="field">
@@ -69,7 +70,7 @@
       <div class="field">
         <label for="full-name">Full name</label>
         <input type="text" id="full-name" name="fullName" placeholder="Jane Smith" required>
-        <span class="hint">Kept private — not shown on the public listing.</span>
+        <span class="hint">Kept private, not shown on the public listing.</span>
       </div>
 
       <div class="field">
@@ -84,18 +85,17 @@
 
       <div class="field">
         <label for="details">Job details <span class="hint" style="display:inline; margin:0;">(shown on the listing, optional)</span></label>
-        <textarea id="details" name="details" placeholder="Dates, frequency, pets, home size — whatever helps people decide if it's a fit."></textarea>
+        <textarea id="details" name="details" placeholder="Dates, frequency, pets, home size: whatever helps people decide if it's a fit."></textarea>
       </div>
 
-      <button type="submit" class="btn btn-blue form-submit">Create listing</button>
+      <button type="submit" class="btn btn-green form-submit">Create listing</button>
     </form>
   </div>
 </section>
 
 <footer class="site-footer">
   <div class="wrap">
-    <p>&copy; 2026 HireKeeper. Currently serving Canada and the US.</p>
-    <p><a href="mailto:hello@hirekeeper.com" style="color: var(--text-faint); text-decoration: underline;">hello@hirekeeper.com</a></p>
+    <p>&copy; 2026 NextdoorJobs. Currently serving Canada and the US.</p>
   </div>
 </footer>
 
